@@ -1,10 +1,10 @@
 // app/layout.tsx
 import "./globals.css";
-import Header from "./Header";
+import Providers from "./providers";
 
 export const metadata = {
-  title: "Superblog",
-  description: "A blog app using Next.js and Prisma",
+  title: "Affine Rollouts",
+  description: "Affine dashboard app using Next.js and Prisma",
 };
 
 export default function RootLayout({
@@ -16,8 +16,9 @@ export default function RootLayout({
     <html lang="en" className="h-full">
       <body className="h-full overflow-hidden">
         <div className="min-h-screen flex flex-col">
-          <Header />
-          <main className="flex-1 overflow-auto">{children}</main>
+          <main className="flex-1 overflow-auto">
+            <Providers>{children}</Providers>
+          </main>
         </div>
       </body>
     </html>
