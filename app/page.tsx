@@ -5,6 +5,7 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { ROLLOUTS_LIMIT, ROLLOUTS_QK } from "./feature/hooks/use-rollouts";
 import { getRollouts } from "./feature/api/rollouts";
 import { RolloutsTable } from "./feature/rollouts/rollouts-table";
+import { Typography } from "./feature/components/typography";
 
 export default function Home() {
   const queryClient = getQueryClient();
@@ -19,10 +20,8 @@ export default function Home() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center -mt-16 p-8">
-      <h1 className="text-5xl font-extrabold mb-12 text-[#333333]">
-        Rollouts Table
-      </h1>
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center p-8">
+      <Typography.Heading1 className="mb-4">Rollouts Table</Typography.Heading1>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <RolloutsTable />
       </HydrationBoundary>

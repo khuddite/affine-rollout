@@ -12,6 +12,13 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        haffer: ["Haffer", "sans-serif"],
+        hafferSQ: ["HafferSQ", "sans-serif"],
+        ttCommonsPro: ["TTCommonsPro", "sans-serif"],
+        firacode: ["FiraCode", "sans-serif"],
+        dmMono: ["DM Mono", "sans-serif"],
+      },
     },
   },
   plugins: [],

@@ -10,6 +10,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { Rollout } from "../api/rollouts.type";
+import { Typography } from "../components/typography";
 
 export const RolloutsTable = () => {
   const { data: rolloutPages } = useSuspenseInfiniteRollouts();
@@ -22,73 +23,153 @@ export const RolloutsTable = () => {
   const columns = useMemo<ColumnDef<Rollout>[]>(
     () => [
       {
-        header: "No.",
+        header: () => (
+          <Typography.DMMonoSmall className="uppercase">
+            No.
+          </Typography.DMMonoSmall>
+        ),
         accessorKey: "id",
         cell: ({ row }) => {
-          return <div>{row.original.id}</div>;
+          return (
+            <Typography.ParagraphHafferSmall className="text-center">
+              {row.original.id}
+            </Typography.ParagraphHafferSmall>
+          );
         },
       },
       {
-        header: "UID",
+        header: () => (
+          <Typography.DMMonoSmall className="uppercase">
+            UID
+          </Typography.DMMonoSmall>
+        ),
         accessorKey: "uid",
         cell: ({ row }) => {
-          return <div>{row.original.uid}</div>;
+          return (
+            <Typography.ParagraphHafferSmall className="text-center">
+              {row.original.uid}
+            </Typography.ParagraphHafferSmall>
+          );
         },
       },
       {
-        header: "Hotkey",
+        header: () => (
+          <Typography.DMMonoSmall className="uppercase">
+            Hotkey
+          </Typography.DMMonoSmall>
+        ),
         accessorKey: "hotkey",
         cell: ({ row }) => {
-          return <div>{row.original.hotkey}</div>;
+          return (
+            <Typography.ParagraphHafferSmall className="text-center">
+              {row.original.hotkey}
+            </Typography.ParagraphHafferSmall>
+          );
         },
       },
       {
-        header: "Model",
+        header: () => (
+          <Typography.DMMonoSmall className="uppercase">
+            Model
+          </Typography.DMMonoSmall>
+        ),
         accessorKey: "model",
         cell: ({ row }) => {
-          return <div>{row.original.model}</div>;
+          return (
+            <Typography.ParagraphHafferSmall className="text-center">
+              {row.original.model}
+            </Typography.ParagraphHafferSmall>
+          );
         },
       },
       {
-        header: "Revision",
+        header: () => (
+          <Typography.DMMonoSmall className="uppercase">
+            Revision
+          </Typography.DMMonoSmall>
+        ),
         accessorKey: "revision",
         cell: ({ row }) => {
-          return <div>{row.original.revision}</div>;
+          return (
+            <Typography.ParagraphHafferSmall className="text-center">
+              {row.original.revision}
+            </Typography.ParagraphHafferSmall>
+          );
         },
       },
       {
-        header: "Block",
+        header: () => (
+          <Typography.DMMonoSmall className="uppercase">
+            Block
+          </Typography.DMMonoSmall>
+        ),
         accessorKey: "block",
         cell: ({ row }) => {
-          return <div>{row.original.block}</div>;
+          return (
+            <Typography.ParagraphHafferSmall className="text-center">
+              {row.original.block}
+            </Typography.ParagraphHafferSmall>
+          );
         },
       },
       {
-        header: "Response",
+        header: () => (
+          <Typography.DMMonoSmall className="uppercase">
+            Response
+          </Typography.DMMonoSmall>
+        ),
         accessorKey: "response",
         cell: ({ row }) => {
-          return <p className="line-clamp-2">{row.original.response}</p>;
+          return (
+            <Typography.ParagraphHafferSmall className="line-clamp-2 text-center">
+              {row.original.response}
+            </Typography.ParagraphHafferSmall>
+          );
         },
       },
       {
-        header: "Error",
+        header: () => (
+          <Typography.DMMonoSmall className="uppercase">
+            Error
+          </Typography.DMMonoSmall>
+        ),
         accessorKey: "error",
         cell: ({ row }) => {
-          return <p className="line-clamp-2">{row.original.error}</p>;
+          return (
+            <Typography.ParagraphHafferSmall className="line-clamp-2 text-center">
+              {row.original.error}
+            </Typography.ParagraphHafferSmall>
+          );
         },
       },
       {
-        header: "Success",
+        header: () => (
+          <Typography.DMMonoSmall className="uppercase">
+            Success
+          </Typography.DMMonoSmall>
+        ),
         accessorKey: "success",
         cell: ({ row }) => {
-          return <div>{row.original.success ? "Yes" : "No"}</div>;
+          return (
+            <Typography.ParagraphHafferSmall className="text-center">
+              {row.original.success ? "Yes" : "No"}
+            </Typography.ParagraphHafferSmall>
+          );
         },
       },
       {
-        header: "Score",
+        header: () => (
+          <Typography.DMMonoSmall className="uppercase">
+            Score
+          </Typography.DMMonoSmall>
+        ),
         accessorKey: "score",
         cell: ({ row }) => {
-          return <div>{row.original.score}</div>;
+          return (
+            <Typography.ParagraphHafferSmall className="text-center">
+              {row.original.score}
+            </Typography.ParagraphHafferSmall>
+          );
         },
       },
     ],
@@ -103,40 +184,45 @@ export const RolloutsTable = () => {
   });
 
   return (
-    <div>
-      <table>
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => {
-            return (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map(
-                  (
-                    header // map over the headerGroup headers array
-                  ) => (
-                    <th key={header.id} colSpan={header.colSpan}>
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                    </th>
-                  )
-                )}
-              </tr>
-            );
-          })}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
+    <table className="w-[50%] border-collapse border border-gray-300">
+      <thead>
+        {table.getHeaderGroups().map((headerGroup) => {
+          return (
+            <tr key={headerGroup.id} className="h-12">
+              {headerGroup.headers.map(
+                (
+                  header // map over the headerGroup headers array
+                ) => (
+                  <th
+                    key={header.id}
+                    colSpan={header.colSpan}
+                    className="bg-gray-900 text-gray-300 min-w-16"
+                  >
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                  </th>
+                )
+              )}
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          );
+        })}
+      </thead>
+      <tbody>
+        {table.getRowModel().rows.map((row) => (
+          <tr
+            key={row.id}
+            className="h-12 hover:bg-gray-200 transition-colors duration-300 ease-in-out"
+          >
+            {row.getVisibleCells().map((cell) => (
+              <td key={cell.id}>
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 };
