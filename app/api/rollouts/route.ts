@@ -1,5 +1,19 @@
+import { Prisma } from "@/lib/generated/prisma-client";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
+// Validate sort parameters
+const validSortFields = ["id", "createdAt", "uid", "block", "score"];
+const validSortOrders = ["asc", "desc"];
+
+const isValidSortField = (
+  field: string
+): field is keyof Prisma.RolloutOrderByWithRelationInput => {
+  return validSortFields.includes(field);
+};
+
+const isValidSortOrder = (order: string): order is Prisma.SortOrder => {
+  return validSortOrders.includes(order);
+};
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
@@ -18,18 +32,14 @@ export async function GET(request: Request) {
     );
   }
 
-  // Validate sort parameters
-  const validSortFields = ["id", "createdAt", "uid", "block", "score"];
-  const validSortOrders = ["asc", "desc"];
-
-  if (!validSortFields.includes(sortBy)) {
+  if (!isValidSortField(sortBy)) {
     return NextResponse.json(
       { error: "Invalid sortBy parameter" },
       { status: 400 }
     );
   }
 
-  if (!validSortOrders.includes(sortOrder)) {
+  if (!isValidSortOrder(sortOrder)) {
     return NextResponse.json(
       { error: "Invalid sortOrder parameter" },
       { status: 400 }
@@ -38,13 +48,13 @@ export async function GET(request: Request) {
 
   try {
     // Build where clause for filtering
-    const where: any = {};
+    const where: Prisma.RolloutWhereInput = {};
     if (success !== null) {
       where.success = success === "true";
     }
 
     // Build orderBy clause
-    const orderBy: any = {};
+    const orderBy: Prisma.RolloutOrderByWithRelationInput = {};
     orderBy[sortBy] = sortOrder;
 
     // Fetch paginated rollouts
