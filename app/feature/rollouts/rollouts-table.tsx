@@ -28,7 +28,7 @@ import {
 
 export const RolloutsTable = () => {
   const [pagination, setPagination] = useState({
-    pageIndex: 1, //initial page index
+    pageIndex: 0, //initial page index
     pageSize: ROLLOUTS_LIMIT, //default page size
   });
   const {
@@ -37,7 +37,7 @@ export const RolloutsTable = () => {
       pagination: { totalRollouts },
     },
   } = useSuspenseRollouts({
-    page: pagination.pageIndex,
+    page: pagination.pageIndex + 1,
     limit: pagination.pageSize,
   });
 

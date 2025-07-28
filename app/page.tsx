@@ -62,7 +62,7 @@ export default function Home() {
               {/* <RolloutsTable /> */}
             </div>
             <div className="w-full lg:w-1/2 flex flex-col gap-2 lg:overflow-hidden h-auto lg:h-full">
-              <div className="w-full flex flex-col border border-gray-200">
+              <div className="w-full flex flex-col border border-gray-200 h-[540px]">
                 <RolloutsTable />
               </div>
             </div>
