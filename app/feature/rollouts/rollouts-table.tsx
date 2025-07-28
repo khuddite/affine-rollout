@@ -20,11 +20,11 @@ import {
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import {
-  IconChevronLeft,
-  IconChevronRight,
-  IconChevronsLeft,
-  IconChevronsRight,
-} from "@tabler/icons-react";
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from "lucide-react";
 
 export const RolloutsTable = () => {
   const [pagination, setPagination] = useState({
@@ -48,7 +48,7 @@ export const RolloutsTable = () => {
       {
         header: () => (
           <Typography.DMMonoSmall className="uppercase">
-            No.
+            #
           </Typography.DMMonoSmall>
         ),
         accessorKey: "id",
@@ -99,7 +99,7 @@ export const RolloutsTable = () => {
         accessorKey: "model",
         cell: ({ row }) => {
           return (
-            <Typography.ParagraphHafferSmall className="text-center">
+            <Typography.ParagraphHafferSmall className="text-center line-clamp-1">
               {row.original.model}
             </Typography.ParagraphHafferSmall>
           );
@@ -144,7 +144,7 @@ export const RolloutsTable = () => {
         accessorKey: "response",
         cell: ({ row }) => {
           return (
-            <Typography.ParagraphHafferSmall className="line-clamp-2 text-center">
+            <Typography.ParagraphHafferSmall className="line-clamp-1 text-center">
               {row.original.response}
             </Typography.ParagraphHafferSmall>
           );
@@ -159,7 +159,7 @@ export const RolloutsTable = () => {
         accessorKey: "error",
         cell: ({ row }) => {
           return (
-            <Typography.ParagraphHafferSmall className="line-clamp-2 text-center">
+            <Typography.ParagraphHafferSmall className="line-clamp-1 text-center">
               {row.original.error}
             </Typography.ParagraphHafferSmall>
           );
@@ -213,48 +213,50 @@ export const RolloutsTable = () => {
   });
 
   return (
-    <div>
-      <table className="w-[50%] border-collapse border border-gray-300">
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => {
-            return (
-              <tr key={headerGroup.id} className="h-14">
-                {headerGroup.headers.map(
-                  (
-                    header // map over the headerGroup headers array
-                  ) => (
-                    <th
-                      key={header.id}
-                      colSpan={header.colSpan}
-                      className="bg-gray-900 text-gray-300 min-w-16"
-                    >
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                    </th>
-                  )
-                )}
+    <>
+      <div className="flex-1 overflow-auto">
+        <table>
+          <thead>
+            {table.getHeaderGroups().map((headerGroup) => {
+              return (
+                <tr key={headerGroup.id} className="h-10">
+                  {headerGroup.headers.map(
+                    (
+                      header // map over the headerGroup headers array
+                    ) => (
+                      <th
+                        key={header.id}
+                        colSpan={header.colSpan}
+                        className="bg-gray-900 text-gray-300 min-w-16"
+                      >
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                      </th>
+                    )
+                  )}
+                </tr>
+              );
+            })}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row) => (
+              <tr
+                key={row.id}
+                className="h-10 hover:bg-gray-200 transition-colors duration-300 ease-in-out"
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <td key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
               </tr>
-            );
-          })}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr
-              key={row.id}
-              className="h-14 hover:bg-gray-200 transition-colors duration-300 ease-in-out"
-            >
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div className="flex items-center justify-end px-4 mt-4">
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="flex items-center px-4 my-2">
         <div className="flex w-full items-center gap-8 lg:w-fit">
           <div className="hidden items-center gap-2 lg:flex">
             <Label htmlFor="rows-per-page" className="text-sm font-medium">
@@ -292,7 +294,7 @@ export const RolloutsTable = () => {
               disabled={!table.getCanPreviousPage()}
             >
               <span className="sr-only">Go to first page</span>
-              <IconChevronsLeft />
+              <ChevronsLeft />
             </Button>
             <Button
               variant="outline"
@@ -302,7 +304,7 @@ export const RolloutsTable = () => {
               disabled={!table.getCanPreviousPage()}
             >
               <span className="sr-only">Go to previous page</span>
-              <IconChevronLeft />
+              <ChevronLeft />
             </Button>
             <Button
               variant="outline"
@@ -312,7 +314,7 @@ export const RolloutsTable = () => {
               disabled={!table.getCanNextPage()}
             >
               <span className="sr-only">Go to next page</span>
-              <IconChevronRight />
+              <ChevronRight />
             </Button>
             <Button
               variant="outline"
@@ -322,11 +324,11 @@ export const RolloutsTable = () => {
               disabled={!table.getCanNextPage()}
             >
               <span className="sr-only">Go to last page</span>
-              <IconChevronsRight />
+              <ChevronsRight />
             </Button>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
