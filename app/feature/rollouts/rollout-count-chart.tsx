@@ -21,11 +21,11 @@ export const RolloutCountChart = ({
 
   return (
     <div className="w-full max-w-xl mx-auto">
-      <div className="flex gap-6 items-center justify-between mb-2">
-        <Typography.DMMonoSmall className="uppercase font-bold">
+      <div className="flex items-center justify-between mb-2 gap-4">
+        <Typography.DMMonoSmall className="uppercase font-bold text-nowrap">
           {data.name}
         </Typography.DMMonoSmall>
-        <ResponsiveContainer height={20} width={200}>
+        <ResponsiveContainer height={20} width="100%">
           <BarChart layout="vertical" data={[data]} stackOffset="expand">
             <XAxis type="number" hide domain={[0, 1]} />
             <YAxis type="category" dataKey="name" hide />
