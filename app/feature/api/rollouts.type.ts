@@ -6,6 +6,15 @@ export interface RolloutParams {
   sortOrder?: string;
 }
 
+export interface RolloutMetricsResponse {
+  uniqueBlocks: number;
+  uniqueUIDs: number;
+  uniqueModels: number;
+  uniqueHotkeys: number;
+  successCount: number;
+  errorCount: number;
+}
+
 export interface RolloutResponse {
   rollouts: Rollout[];
   pagination: {
@@ -21,6 +30,11 @@ export interface RolloutResponse {
     sortOrder: string;
     success: boolean | null;
   };
+}
+
+export interface RolloutByModel {
+  model: string;
+  count: number;
 }
 
 export interface Rollout {

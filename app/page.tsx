@@ -9,6 +9,7 @@ import { Typography } from "./feature/components/typography";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import { RolloutMetrics } from "./feature/rollouts";
 
 export default function Home() {
   const queryClient = getQueryClient();
@@ -59,7 +60,7 @@ export default function Home() {
         <div className="flex flex-grow lg:overflow-hidden relative flex-1">
           <div className="flex flex-col-reverse lg:flex-row w-full flex-grow lg:gap-2 ">
             <div className="w-full lg:w-1/2 flex flex-col gap-2 lg:overflow-auto h-auto lg:h-full">
-              {/* <RolloutsTable /> */}
+              <RolloutMetrics />
             </div>
             <div className="w-full lg:w-1/2 flex flex-col gap-2 lg:overflow-hidden h-auto lg:h-full">
               <div className="w-full flex flex-col border border-gray-200 h-[540px]">
