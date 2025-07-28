@@ -56,7 +56,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50 px-4">
-      <div className="mb-2 border-b-[1px] border-gray-200 py-2 flex justify-between w-full items-center sticky top-0 bg-gray-50 z-40">
+      <div className="mb-2 border-b-[1px] border-gray-200 pt-4 pb-2 flex justify-between w-full items-center sticky top-0 bg-gray-50 z-40">
         <div>
           <Typography.DMMonoHeading3 className="uppercase font-bold">
             Affine Foundation
