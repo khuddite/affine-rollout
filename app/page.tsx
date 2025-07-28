@@ -3,12 +3,14 @@ export const dynamic = "force-dynamic"; // This disables SSG and ISR
 import { getQueryClient } from "./get-query-client";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import {
+  ROLLOUTS_AVERAGE_SCORE_QK,
   ROLLOUTS_BY_MODEL_QK,
   ROLLOUTS_LIMIT,
   ROLLOUTS_METRICS_QK,
   ROLLOUTS_QK,
 } from "./feature/hooks/use-rollouts";
 import {
+  getAverageScore,
   getRolloutMetrics,
   getRollouts,
   getRolloutsByModel,
@@ -21,6 +23,8 @@ import Link from "next/link";
 import { RolloutMetrics } from "./feature/rollouts";
 import { Suspense } from "react";
 import { RolloutMetricsSkeleton } from "./feature/rollouts/rollout-metrics-skeleton";
+import { AverageScoreTable } from "./feature/rollouts/average-score-table";
+import { AverageScoreTableSkeleton } from "./feature/rollouts/average-score-table-skeleton";
 
 export default function Home() {
   const queryClient = getQueryClient();
@@ -45,16 +49,21 @@ export default function Home() {
     queryFn: () => getRolloutsByModel(),
   });
 
+  queryClient.prefetchQuery({
+    queryKey: [ROLLOUTS_AVERAGE_SCORE_QK],
+    queryFn: () => getAverageScore(),
+  });
+
   return (
     <div className="min-h-screen bg-gray-50 py-6 px-4 flex flex-col">
-      <div className="mb-4 border-b-[1px] border-gray-200 pb-2 flex justify-between w-full items-center">
+      <div className="mb-2 border-b-[1px] border-gray-200 pb-2 flex justify-between w-full items-center">
         <div>
-          <Typography.DMMonoHeading2 className="uppercase font-bold">
+          <Typography.DMMonoHeading3 className="uppercase font-bold">
             Affine Foundation
-          </Typography.DMMonoHeading2>
-          <Typography.ParagraphHaffer className="text-gray-400">
+          </Typography.DMMonoHeading3>
+          <Typography.ParagraphHafferSmall className="text-gray-400">
             We will mine reasoning for the world.
-          </Typography.ParagraphHaffer>
+          </Typography.ParagraphHafferSmall>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="link" size="icon">
@@ -86,8 +95,13 @@ export default function Home() {
               </Suspense>
             </div>
             <div className="w-full lg:w-1/2 flex flex-col gap-2 lg:overflow-hidden h-auto lg:h-full">
-              <div className="w-full flex flex-col border border-gray-200 h-[540px]">
+              <div className="w-full flex flex-col border border-gray-200 max-h-[50vh]">
                 <RolloutsTable />
+              </div>
+              <div className="w-full border border-gray-200 flex overflow-auto max-h-[calc(50vh-120px)]">
+                <Suspense fallback={<AverageScoreTableSkeleton />}>
+                  <AverageScoreTable />
+                </Suspense>
               </div>
             </div>
           </div>

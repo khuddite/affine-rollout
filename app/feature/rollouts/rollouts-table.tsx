@@ -53,7 +53,7 @@ export const RolloutsTable = () => {
             #
           </Typography.DMMonoSmall>
         ),
-        accessorKey: "id",
+        accessorKey: "index",
         cell: ({ row }) => {
           return (
             <Typography.ParagraphHafferSmall className="text-center">
@@ -65,7 +65,7 @@ export const RolloutsTable = () => {
       {
         header: () => (
           <Typography.DMMonoSmall className="uppercase">
-            UID
+            Miner UID
           </Typography.DMMonoSmall>
         ),
         accessorKey: "uid",
@@ -218,7 +218,7 @@ export const RolloutsTable = () => {
     <>
       <div className="flex-1 overflow-auto">
         <table className="w-full">
-          <thead>
+          <thead className="sticky top-0">
             {table.getHeaderGroups().map((headerGroup) => {
               return (
                 <tr key={headerGroup.id} className="h-10">
@@ -277,7 +277,7 @@ export const RolloutsTable = () => {
           </tbody>
         </table>
       </div>
-      <div className="flex items-center px-4 my-2">
+      <div className="flex items-center px-4 my-1">
         <div className="flex w-full items-center gap-8 lg:w-fit">
           <div className="hidden items-center gap-2 lg:flex">
             <Label htmlFor="rows-per-page" className="text-sm font-medium">

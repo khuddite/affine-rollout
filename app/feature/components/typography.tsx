@@ -37,4 +37,7 @@ export const Typography = {
   DMMonoHeading2: ({ className, children }: TypographyProps) => (
     <p className={twMerge("font-dmMono text-3xl", className)}>{children}</p>
   ),
+  DMMonoHeading3: ({ className, children }: TypographyProps) => (
+    <p className={twMerge("font-dmMono text-2xl", className)}>{children}</p>
+  ),
 };

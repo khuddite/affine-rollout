@@ -18,3 +18,9 @@ export const getRolloutsByModel = async () => {
 
   return response.data;
 };
+
+export const getAverageScore = async () => {
+  const response = await api.get("/api/rollouts/average-score");
+
+  return response.data;
+};

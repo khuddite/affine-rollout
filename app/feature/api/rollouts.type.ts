@@ -51,3 +51,9 @@ export interface Rollout {
   success: boolean;
   score?: number;
 }
+
+export interface AverageScore {
+  uid: string;
+  avgScore: number;
+  count: number;
+}
