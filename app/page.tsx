@@ -10,13 +10,14 @@ import { Typography } from "./feature/components/typography";
 export default function Home() {
   const queryClient = getQueryClient();
 
-  queryClient.prefetchInfiniteQuery({
-    queryKey: [ROLLOUTS_QK],
-    queryFn: ({ pageParam }) => getRollouts(pageParam),
-    initialPageParam: {
-      page: 1,
-      limit: ROLLOUTS_LIMIT,
-    },
+  const prefetchParams = {
+    page: 1,
+    limit: ROLLOUTS_LIMIT,
+  };
+
+  queryClient.prefetchQuery({
+    queryKey: [ROLLOUTS_QK, prefetchParams],
+    queryFn: () => getRollouts(prefetchParams),
   });
 
   return (
