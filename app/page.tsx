@@ -2,14 +2,25 @@ export const dynamic = "force-dynamic"; // This disables SSG and ISR
 
 import { getQueryClient } from "./get-query-client";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import { ROLLOUTS_LIMIT, ROLLOUTS_QK } from "./feature/hooks/use-rollouts";
-import { getRollouts } from "./feature/api/rollouts";
+import {
+  ROLLOUTS_BY_MODEL_QK,
+  ROLLOUTS_LIMIT,
+  ROLLOUTS_METRICS_QK,
+  ROLLOUTS_QK,
+} from "./feature/hooks/use-rollouts";
+import {
+  getRolloutMetrics,
+  getRollouts,
+  getRolloutsByModel,
+} from "./feature/api/rollouts";
 import { RolloutsTable } from "./feature/rollouts/rollouts-table";
 import { Typography } from "./feature/components/typography";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { RolloutMetrics } from "./feature/rollouts";
+import { Suspense } from "react";
+import { RolloutMetricsSkeleton } from "./feature/rollouts/rollout-metrics-skeleton";
 
 export default function Home() {
   const queryClient = getQueryClient();
@@ -22,6 +33,16 @@ export default function Home() {
   queryClient.prefetchQuery({
     queryKey: [ROLLOUTS_QK, prefetchParams],
     queryFn: () => getRollouts(prefetchParams),
+  });
+
+  queryClient.prefetchQuery({
+    queryKey: [ROLLOUTS_METRICS_QK],
+    queryFn: () => getRolloutMetrics(),
+  });
+
+  queryClient.prefetchQuery({
+    queryKey: [ROLLOUTS_BY_MODEL_QK],
+    queryFn: () => getRolloutsByModel(),
   });
 
   return (
@@ -60,7 +81,9 @@ export default function Home() {
         <div className="flex flex-grow lg:overflow-hidden relative flex-1">
           <div className="flex flex-col-reverse lg:flex-row w-full flex-grow lg:gap-2 ">
             <div className="w-full lg:w-1/2 flex flex-col gap-2 lg:overflow-auto h-auto lg:h-full">
-              <RolloutMetrics />
+              <Suspense fallback={<RolloutMetricsSkeleton />}>
+                <RolloutMetrics />
+              </Suspense>
             </div>
             <div className="w-full lg:w-1/2 flex flex-col gap-2 lg:overflow-hidden h-auto lg:h-full">
               <div className="w-full flex flex-col border border-gray-200 h-[540px]">
