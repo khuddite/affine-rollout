@@ -217,7 +217,7 @@ export const RolloutsTable = () => {
   return (
     <>
       <div className="flex-1 overflow-auto">
-        <table>
+        <table className="w-full">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => {
               return (
