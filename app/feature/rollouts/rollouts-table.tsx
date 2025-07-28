@@ -1,6 +1,6 @@
 "use client";
 import React, { useMemo, useState } from "react";
-import { ROLLOUTS_LIMIT, useSuspenseRollouts } from "../hooks/use-rollouts";
+import { ROLLOUTS_LIMIT, useRollouts } from "../hooks/use-rollouts";
 import {
   ColumnDef,
   flexRender,
@@ -32,11 +32,13 @@ export const RolloutsTable = () => {
     pageSize: ROLLOUTS_LIMIT, //default page size
   });
   const {
-    data: {
-      rollouts,
-      pagination: { totalRollouts },
+    isFetching,
+    isLoading,
+    data: { rollouts, pagination: { totalRollouts } } = {
+      rollouts: [],
+      pagination: { totalRollouts: 0 },
     },
-  } = useSuspenseRollouts({
+  } = useRollouts({
     page: pagination.pageIndex + 1,
     limit: pagination.pageSize,
   });
@@ -241,18 +243,37 @@ export const RolloutsTable = () => {
             })}
           </thead>
           <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr
-                key={row.id}
-                className="h-10 hover:bg-gray-200 transition-colors duration-300 ease-in-out"
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
+            {isLoading
+              ? Array.from({ length: pagination.pageSize }).map((_, index) => (
+                  <tr key={`loading-skeleton-${index}`} className="h-10">
+                    {columns.map((_column, colIndex) => (
+                      <td
+                        key={`skeleton-cell-${index}-${colIndex}`}
+                        className="px-2"
+                      >
+                        <div className="h-4 bg-gray-200 rounded w-full"></div>
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              : table.getRowModel().rows.map((row) => (
+                  <tr
+                    key={row.id}
+                    className="h-10 hover:bg-gray-200 transition-colors duration-300 ease-in-out"
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <td
+                        key={cell.id}
+                        className={`${isFetching && "animate-pulse"}`}
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </td>
+                    ))}
+                  </tr>
                 ))}
-              </tr>
-            ))}
           </tbody>
         </table>
       </div>
@@ -274,7 +295,7 @@ export const RolloutsTable = () => {
                 />
               </SelectTrigger>
               <SelectContent side="top">
-                {[10, 20, 30, 40, 50].map((pageSize) => (
+                {[15, 30, 50].map((pageSize) => (
                   <SelectItem key={pageSize} value={`${pageSize}`}>
                     {pageSize}
                   </SelectItem>
