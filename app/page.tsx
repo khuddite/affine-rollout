@@ -55,8 +55,8 @@ export default function Home() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 py-6 px-4 flex flex-col">
-      <div className="mb-2 border-b-[1px] border-gray-200 pb-2 flex justify-between w-full items-center">
+    <div className="min-h-screen bg-gray-50 px-4">
+      <div className="mb-2 border-b-[1px] border-gray-200 py-2 flex justify-between w-full items-center sticky top-0 bg-gray-50 z-40">
         <div>
           <Typography.DMMonoHeading3 className="uppercase font-bold">
             Affine Foundation
@@ -98,7 +98,7 @@ export default function Home() {
               <div className="w-full flex flex-col border border-gray-200 max-h-[50vh]">
                 <RolloutsTable />
               </div>
-              <div className="w-full border border-gray-200 flex overflow-auto max-h-[calc(50vh-120px)]">
+              <div className="w-full border border-gray-200 flex overflow-auto max-h-[calc(50vh-126px)]">
                 <Suspense fallback={<AverageScoreTableSkeleton />}>
                   <AverageScoreTable />
                 </Suspense>

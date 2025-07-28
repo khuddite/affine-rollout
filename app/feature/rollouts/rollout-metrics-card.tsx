@@ -12,8 +12,12 @@ export const RolloutMetricsCard = ({
 }: RolloutMetricsCardProps) => {
   return (
     <div className="w-full border border-gray-200 p-2 flex flex-col gap-4">
-      <Typography.ParagraphHaffer>{value}</Typography.ParagraphHaffer>
-      <Typography.DMMonoSmall>{title}</Typography.DMMonoSmall>
+      <Typography.ParagraphHaffer className="font-bold">
+        {value}
+      </Typography.ParagraphHaffer>
+      <Typography.DMMonoSmall className="uppercase">
+        {title}
+      </Typography.DMMonoSmall>
     </div>
   );
 };
