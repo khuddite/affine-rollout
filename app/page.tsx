@@ -25,6 +25,7 @@ import { Suspense } from "react";
 import { RolloutMetricsSkeleton } from "./feature/rollouts/rollout-metrics-skeleton";
 import { AverageScoreTable } from "./feature/rollouts/average-score-table";
 import { AverageScoreTableSkeleton } from "./feature/rollouts/average-score-table-skeleton";
+import { LatestRolloutList } from "./feature/rollouts/latest-rollout-list";
 
 export default function Home() {
   const queryClient = getQueryClient();
@@ -55,7 +56,7 @@ export default function Home() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 px-4">
+    <div className="h-screen bg-gray-50 px-4 flex flex-col">
       <div className="mb-2 border-b-[1px] border-gray-200 pt-4 pb-2 flex justify-between w-full items-center sticky top-0 bg-gray-50 z-40">
         <div>
           <Typography.DMMonoHeading3 className="uppercase font-bold">
@@ -88,11 +89,12 @@ export default function Home() {
       </div>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <div className="flex flex-grow lg:overflow-hidden relative flex-1">
-          <div className="flex flex-col-reverse lg:flex-row w-full flex-grow lg:gap-2 ">
-            <div className="w-full lg:w-1/2 flex flex-col gap-2 lg:overflow-auto h-auto lg:h-full">
+          <div className="flex flex-col-reverse lg:flex-row w-full flex-grow lg:gap-2 h-full">
+            <div className="w-full lg:w-1/2 flex flex-col gap-2 lg:overflow-y-auto h-auto lg:h-full overflow-x-hidden">
               <Suspense fallback={<RolloutMetricsSkeleton />}>
                 <RolloutMetrics />
               </Suspense>
+              <LatestRolloutList />
             </div>
             <div className="w-full lg:w-1/2 flex flex-col gap-2 lg:overflow-hidden h-auto lg:h-full">
               <div className="w-full flex flex-col border border-gray-200 max-h-[50vh]">

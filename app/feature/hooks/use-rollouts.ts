@@ -31,6 +31,14 @@ export const useRollouts = (params: RolloutParams) => {
   });
 };
 
+export const useStreamingRollouts = (params: RolloutParams) => {
+  return useQuery<RolloutResponse>({
+    queryKey: [ROLLOUTS_QK, "streaming", params],
+    queryFn: () => getRollouts(params),
+    placeholderData: keepPreviousData,
+  });
+};
+
 export const useSuspenseRolloutMetrics = () => {
   return useSuspenseQuery<RolloutMetricsResponse>({
     queryKey: [ROLLOUTS_METRICS_QK],

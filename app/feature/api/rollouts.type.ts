@@ -1,6 +1,7 @@
 export interface RolloutParams {
-  page: number;
+  page?: number;
   limit: number;
+  offset?: number;
   success?: boolean;
   sortBy?: string;
   sortOrder?: string;

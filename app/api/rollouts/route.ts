@@ -17,12 +17,17 @@ const isValidSortOrder = (order: string): order is Prisma.SortOrder => {
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
+
   const page = parseInt(url.searchParams.get("page") || "1");
   const limit = parseInt(url.searchParams.get("limit") || "10");
   const success = url.searchParams.get("success"); // filter by success status
   const sortBy = url.searchParams.get("sortBy") || "id";
   const sortOrder = url.searchParams.get("sortOrder") || "asc";
-  const offset = (page - 1) * limit;
+  let offset = (page - 1) * limit;
+
+  if (url.searchParams.get("offset")) {
+    offset = parseInt(url.searchParams.get("offset") || "0");
+  }
 
   // Validate pagination parameters
   if (page < 1 || limit < 1 || limit > 100) {
