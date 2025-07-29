@@ -117,7 +117,10 @@ export const AverageScoreTable = () => {
       <tbody>
         {table.getRowModel().rows.map((row) => {
           return (
-            <tr key={row.id} className="h-10">
+            <tr
+              key={row.id}
+              className="h-10  hover:bg-gray-200 transition-colors duration-300 ease-in-out"
+            >
               {row.getVisibleCells().map((cell) => {
                 return (
                   <td key={cell.id}>
