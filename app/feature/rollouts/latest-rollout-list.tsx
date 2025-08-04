@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useStreamingRollouts } from "../hooks/use-rollouts";
 import { Rollout } from "../api/rollouts.type";
 import { Typography } from "../components/typography";
@@ -12,6 +12,7 @@ const useStreamingRolloutsState = (limit: number = 10) => {
 
   const { data: latestData } = useStreamingRollouts({
     limit: 10,
+    success: true,
     offset,
   });
 
